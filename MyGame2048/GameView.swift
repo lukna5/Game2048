@@ -7,22 +7,22 @@ class GameView: UIView{
     let indentFromX = 30
     let indentFromY = 50
     let headerHeight = 150
-    var size: Int = 4
-    private var table = [[UILabel]]()
+    let size: Int = 4
+    var table = [[UILabel]]()
     let viewController: ViewController
     let colors: [Int: UIColor] = [
         0: UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1.0),
-        2: UIColor(red: 238/255, green: 228/255, blue: 218/255, alpha: 1.0), // бежевый
-        4: UIColor(red: 237/255, green: 224/255, blue: 200/255, alpha: 1.0), // светло-желтый
-        8: UIColor(red: 242/255, green: 177/255, blue: 121/255, alpha: 1.0), // оранжевый
-        16: UIColor(red: 245/255, green: 149/255, blue: 99/255, alpha: 1.0), // светло-оранжевый
-        32: UIColor(red: 246/255, green: 124/255, blue: 95/255, alpha: 1.0), // коралловый
-        64: UIColor(red: 246/255, green: 94/255, blue: 59/255, alpha: 1.0), // красный
-        128: UIColor(red: 237/255, green: 207/255, blue: 114/255, alpha: 1.0), // светло-зеленый
-        256: UIColor(red: 237/255, green: 204/255, blue: 97/255, alpha: 1.0), // зеленый
-        512: UIColor(red: 237/255, green: 200/255, blue: 80/255, alpha: 1.0), // темно-зеленый
-        1024: UIColor(red: 237/255, green: 197/255, blue: 63/255, alpha: 1.0), // светло-синий
-        2048: UIColor(red: 237/255, green: 194/255, blue: 46/255, alpha: 1.0), // синий
+        2: UIColor(red: 238/255, green: 228/255, blue: 218/255, alpha: 1.0),
+        4: UIColor(red: 237/255, green: 224/255, blue: 200/255, alpha: 1.0),
+        8: UIColor(red: 242/255, green: 177/255, blue: 121/255, alpha: 1.0),
+        16: UIColor(red: 245/255, green: 149/255, blue: 99/255, alpha: 1.0),
+        32: UIColor(red: 246/255, green: 124/255, blue: 95/255, alpha: 1.0),
+        64: UIColor(red: 246/255, green: 94/255, blue: 59/255, alpha: 1.0),
+        128: UIColor(red: 237/255, green: 207/255, blue: 114/255, alpha: 1.0),
+        256: UIColor(red: 237/255, green: 204/255, blue: 97/255, alpha: 1.0),
+        512: UIColor(red: 237/255, green: 200/255, blue: 80/255, alpha: 1.0),
+        1024: UIColor(red: 237/255, green: 197/255, blue: 63/255, alpha: 1.0),
+        2048: UIColor(red: 237/255, green: 194/255, blue: 46/255, alpha: 1.0),
     ]
     
     init(frame: CGRect, viewController: ViewController) {
@@ -37,8 +37,6 @@ class GameView: UIView{
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    
     
     private var stackView = UIStackView()
     
@@ -64,11 +62,7 @@ class GameView: UIView{
     
     private lazy var restartLabel: UIButton = {
         let button = UIButton(type: .system)
-        let label = UILabel()
         button.translatesAutoresizingMaskIntoConstraints = false
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = .center
-        label.text = "Restart"
         button.backgroundColor = UIColor(red: 56 / 255, green: 50 / 255, blue: 48 / 255, alpha: 1.0)
         button.setTitleColor(UIColor(red: 228 / 255, green: 218 / 255, blue: 208 / 255, alpha: 1.0), for: .normal)
         button.setTitle("Restart", for: .normal)
@@ -80,9 +74,6 @@ class GameView: UIView{
     @objc func restart(){
         self.removeFromSuperview()
         viewController.restartGame()
-    }
-    @objc func print1() {
-        Swift.print(8)
     }
     
     private func setCell(x: Int, y: Int, val: Int){
@@ -152,28 +143,27 @@ class GameView: UIView{
     }
     
     func initializeCells() {
-        for x in 0..<4 {
+        for x in 0..<size {
             table.append([UILabel]())
-            for y in 0..<4 {
+            for _ in 0..<size {
                 table[x].append(UILabel())
             }
         }
-        for x in (0..<4).reversed() {
+        for x in (0..<size).reversed() {
             let rowStackView = UIStackView()
             rowStackView.translatesAutoresizingMaskIntoConstraints = false
             rowStackView.axis = .horizontal
             rowStackView.layoutMargins = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
-            rowStackView.isLayoutMarginsRelativeArrangement = true            //rowStackView.alignment = .center
+            rowStackView.isLayoutMarginsRelativeArrangement = true
             rowStackView.spacing = 10
             rowStackView.distribution = .fillEqually
             stackView.addArrangedSubview(rowStackView)
             NSLayoutConstraint.activate([
                 rowStackView.widthAnchor.constraint(equalTo: stackView.widthAnchor)
             ])
-            for y in 0..<4 {
+            for y in 0..<size {
                 let cell = table[x][y]
                 cell.translatesAutoresizingMaskIntoConstraints = false
-                cell.text = String(x * 5 + 7 * y)
                 cell.textAlignment = .center
                 cell.font = UIFont.systemFont(ofSize: 25, weight: .bold)
                 cell.backgroundColor = colors[0]

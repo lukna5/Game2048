@@ -15,7 +15,6 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         restartGame()
         initializeGestures()
         view.backgroundColor = UIColor(red: 231 / 255, green: 228 / 255, blue: 220 / 255, alpha: 1.0)
@@ -37,8 +36,6 @@ class ViewController: UIViewController {
         
     }
     
-    // Do any additional setup after loading the view.
-    // Создание 16 UILabel
     func initializeGestures() {
         
         let leftGesture = UISwipeGestureRecognizer(target: self, action: #selector(moveLeft))

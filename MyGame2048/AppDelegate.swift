@@ -1,9 +1,3 @@
-//
-//  AppDelegate.swift
-//  MyGame2048
-//
-//  Created by Татьяна Богуславская on 06.05.2023.
-//
 
 import UIKit
 @main
