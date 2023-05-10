@@ -13,9 +13,6 @@
 		D130E9062A069DA900853170 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D130E9042A069DA900853170 /* Main.storyboard */; };
 		D130E9082A069DAB00853170 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D130E9072A069DAB00853170 /* Assets.xcassets */; };
 		D130E90B2A069DAB00853170 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D130E9092A069DAB00853170 /* LaunchScreen.storyboard */; };
-		D130E9162A069DAB00853170 /* MyGame2048Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D130E9152A069DAB00853170 /* MyGame2048Tests.swift */; };
-		D130E9202A069DAC00853170 /* MyGame2048UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D130E91F2A069DAC00853170 /* MyGame2048UITests.swift */; };
-		D130E9222A069DAC00853170 /* MyGame2048UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D130E9212A069DAC00853170 /* MyGame2048UITestsLaunchTests.swift */; };
 		D130E9312A06D2C600853170 /* GameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D130E9302A06D2C600853170 /* GameModel.swift */; };
 		D130E9332A07E64C00853170 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D130E9322A07E64C00853170 /* GameView.swift */; };
 /* End PBXBuildFile section */
@@ -47,10 +44,7 @@
 		D130E90A2A069DAB00853170 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D130E90C2A069DAB00853170 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D130E9112A069DAB00853170 /* MyGame2048Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyGame2048Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D130E9152A069DAB00853170 /* MyGame2048Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyGame2048Tests.swift; sourceTree = "<group>"; };
 		D130E91B2A069DAC00853170 /* MyGame2048UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyGame2048UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D130E91F2A069DAC00853170 /* MyGame2048UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyGame2048UITests.swift; sourceTree = "<group>"; };
-		D130E9212A069DAC00853170 /* MyGame2048UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyGame2048UITestsLaunchTests.swift; sourceTree = "<group>"; };
 		D130E9302A06D2C600853170 /* GameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModel.swift; sourceTree = "<group>"; };
 		D130E9322A07E64C00853170 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -84,8 +78,6 @@
 			isa = PBXGroup;
 			children = (
 				D130E8FD2A069DA900853170 /* MyGame2048 */,
-				D130E9142A069DAB00853170 /* MyGame2048Tests */,
-				D130E91E2A069DAC00853170 /* MyGame2048UITests */,
 				D130E8FC2A069DA900853170 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -114,23 +106,6 @@
 				D130E90C2A069DAB00853170 /* Info.plist */,
 			);
 			path = MyGame2048;
-			sourceTree = "<group>";
-		};
-		D130E9142A069DAB00853170 /* MyGame2048Tests */ = {
-			isa = PBXGroup;
-			children = (
-				D130E9152A069DAB00853170 /* MyGame2048Tests.swift */,
-			);
-			path = MyGame2048Tests;
-			sourceTree = "<group>";
-		};
-		D130E91E2A069DAC00853170 /* MyGame2048UITests */ = {
-			isa = PBXGroup;
-			children = (
-				D130E91F2A069DAC00853170 /* MyGame2048UITests.swift */,
-				D130E9212A069DAC00853170 /* MyGame2048UITestsLaunchTests.swift */,
-			);
-			path = MyGame2048UITests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -276,7 +251,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D130E9162A069DAB00853170 /* MyGame2048Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,8 +258,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D130E9222A069DAC00853170 /* MyGame2048UITestsLaunchTests.swift in Sources */,
-				D130E9202A069DAC00853170 /* MyGame2048UITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

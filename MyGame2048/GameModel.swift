@@ -8,6 +8,7 @@ enum Result {
     case undo
     
 }
+
 class GameModel {
     let size: Int
     public var table: [[Int]]
@@ -18,7 +19,6 @@ class GameModel {
         randomFill()
     }
     
-    // return true if game ends
     public func makeTurn(dir: Direction) -> Result{
         let prevTable = table.map { $0.map { $0 } }
         mergeTiles(dir: dir)
@@ -26,8 +26,7 @@ class GameModel {
             return .undo
         }
         randomFill()
-        let res = checkEndGame()
-        return res
+        return checkEndGame()
     }
     
     func checkTableIsSimular(prevTable: [[Int]]) -> Bool{
@@ -42,7 +41,6 @@ class GameModel {
     }
     
     func mergeTiles(dir: Direction){
-        print(6)
         switch dir {
         case .up, .right:
             for y in (0..<4).reversed() {
@@ -211,12 +209,4 @@ class GameModel {
         return .lose
     }
     
-    func hasEmptyTile() -> Bool {
-        for row in table {
-            if row.contains(0) {
-                return true
-            }
-        }
-        return false
-    }
 }
