@@ -65,7 +65,7 @@ class GameModel {
                         }
                         let val = table[y][x]
                         table[y][x] = 0
-
+                        
                         for i in( 0..<size).reversed() {
                             if table[i][x] == 0 {
                                 table[i][x] = val
@@ -85,10 +85,10 @@ class GameModel {
                             }
                             table[y][x1] = 0
                         }
-
+                        
                         let val = table[y][x]
                         table[y][x] = 0
-
+                        
                         for i in (0..<size).reversed() {
                             if table[y][i] == 0 {
                                 table[y][i] = val
@@ -100,18 +100,18 @@ class GameModel {
             }
         case .bottom, .left:
             for y in 0..<size {
-
+                
                 for x in 0..<size {
-
+                    
                     let cell = table[y][x]
-
+                    
                     if dir == .bottom {
-
+                        
                         var y1 = y + 1
                         while y1 != size && table[y1][x] == 0 {
                             y1 += 1
                         }
-
+                        
                         if y1 < size && table[y1][x] == cell {
                             if cell == 0 {
                                 table[y][x] = table[y1][x]
@@ -134,7 +134,7 @@ class GameModel {
                         while x1 != size && table[y][x1] == 0 {
                             x1 += 1
                         }
-
+                        
                         if x1 < size && table[y][x1] == cell {
                             table[y][x] = 2 * cell
                             table[y][x1] = 0
@@ -148,7 +148,7 @@ class GameModel {
                                 break
                             }
                         }
-
+                        
                     }
                 }
             }
@@ -175,7 +175,7 @@ class GameModel {
         let (row, col) = zeroCells[randomIndex]
         table[row][col] = randomNum
     }
-
+    
     func checkEndGame() -> Result {
         if size < 2 {
             return .lose
@@ -184,7 +184,7 @@ class GameModel {
         var containsZero = false
         for a in table {
             for cell in a {
-                if cell == 32 {
+                if cell == 2048 {
                     return .win
                 }
                 containsZero = containsZero || cell == 0

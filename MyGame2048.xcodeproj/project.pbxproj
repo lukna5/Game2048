@@ -107,11 +107,11 @@
 				D130E9002A069DA900853170 /* SceneDelegate.swift */,
 				D130E9022A069DA900853170 /* ViewController.swift */,
 				D130E9302A06D2C600853170 /* GameModel.swift */,
+				D130E9322A07E64C00853170 /* GameView.swift */,
 				D130E9042A069DA900853170 /* Main.storyboard */,
 				D130E9072A069DAB00853170 /* Assets.xcassets */,
 				D130E9092A069DAB00853170 /* LaunchScreen.storyboard */,
 				D130E90C2A069DAB00853170 /* Info.plist */,
-				D130E9322A07E64C00853170 /* GameView.swift */,
 			);
 			path = MyGame2048;
 			sourceTree = "<group>";

@@ -11,14 +11,21 @@ class ViewController: UIViewController {
     
     var gameModel: GameModel?
     var gameView: GameView?
-
+    var gameIsRun = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        gameView = GameView(frame: CGRect())
+        
+        restartGame()
+        initializeGestures()
+        view.backgroundColor = UIColor(red: 231 / 255, green: 228 / 255, blue: 220 / 255, alpha: 1.0)
+    }
+    
+    func restartGame() {
+        gameView = GameView(frame: CGRect(), viewController: self)
         gameModel = GameModel()
         updateView(.play)
-        initializeGestures()
+        gameIsRun = true
         view.addSubview(gameView!)
         gameView!.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -27,54 +34,69 @@ class ViewController: UIViewController {
             gameView!.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor),
             gameView!.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor)
         ])
-    }
         
-                    // Do any additional setup after loading the view.
-        // Создание 16 UILabel
-        func initializeGestures() {
-
-            let leftGesture = UISwipeGestureRecognizer(target: self, action: #selector(moveLeft))
-            leftGesture.direction = UISwipeGestureRecognizer.Direction.left
-            view.addGestureRecognizer(leftGesture)
-
-            let rightGesture = UISwipeGestureRecognizer(target: self, action: #selector(moveRight))
-            rightGesture.direction = UISwipeGestureRecognizer.Direction.right
-            view.addGestureRecognizer(rightGesture)
-
-            let upGesture = UISwipeGestureRecognizer(target: self, action: #selector(moveUp))
-            upGesture.direction = UISwipeGestureRecognizer.Direction.up
-            view.addGestureRecognizer(upGesture)
-
-            let downGesture = UISwipeGestureRecognizer(target: self, action: #selector(moveDown))
-            downGesture.direction = UISwipeGestureRecognizer.Direction.down
-            view.addGestureRecognizer(downGesture)
+    }
+    
+    // Do any additional setup after loading the view.
+    // Создание 16 UILabel
+    func initializeGestures() {
+        
+        let leftGesture = UISwipeGestureRecognizer(target: self, action: #selector(moveLeft))
+        leftGesture.direction = UISwipeGestureRecognizer.Direction.left
+        view.addGestureRecognizer(leftGesture)
+        
+        let rightGesture = UISwipeGestureRecognizer(target: self, action: #selector(moveRight))
+        rightGesture.direction = UISwipeGestureRecognizer.Direction.right
+        view.addGestureRecognizer(rightGesture)
+        
+        let upGesture = UISwipeGestureRecognizer(target: self, action: #selector(moveUp))
+        upGesture.direction = UISwipeGestureRecognizer.Direction.up
+        view.addGestureRecognizer(upGesture)
+        
+        let downGesture = UISwipeGestureRecognizer(target: self, action: #selector(moveDown))
+        downGesture.direction = UISwipeGestureRecognizer.Direction.down
+        view.addGestureRecognizer(downGesture)
+    }
+    
+    func updateView(_ resultGame: Result) {
+        if resultGame == .win {
+            gameView!.setWin()
+            gameIsRun = false
         }
-
-        func updateView(_ resultGame: Result) {
-            if resultGame == .win {
-                gameView!.setWin()
-            }
-            gameView!.updateView(gameTable: gameModel!.table)
+        if resultGame == .lose {
+            gameView!.setLose()
+            gameIsRun = false
         }
-
-        @objc func moveLeft() {
+        gameView!.updateView(gameTable: gameModel!.table)
+    }
+    
+    @objc func moveLeft() {
+        if gameIsRun {
             let result = gameModel!.makeTurn(dir: .left)
             updateView(result)
         }
-
-        @objc func moveRight() {
+    }
+    
+    @objc func moveRight() {
+        if gameIsRun {
             let result = gameModel!.makeTurn(dir: .right)
             updateView(result)
         }
-
-        @objc func moveUp() {
+    }
+    
+    @objc func moveUp() {
+        if gameIsRun {
             let result = gameModel!.makeTurn(dir: .up)
             updateView(result)
         }
-
-        @objc func moveDown() {
+    }
+    
+    @objc func moveDown() {
+        if gameIsRun {
             let result = gameModel!.makeTurn(dir: .bottom)
             updateView(result)
         }
-
+    }
+    
+    
 }
