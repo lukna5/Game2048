@@ -9,6 +9,7 @@ class GameView: UIView{
     let headerHeight = 150
     var size: Int = 4
     private var table = [[UILabel]]()
+    let viewController: ViewController
     let colors: [Int: UIColor] = [
         0: UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1.0),
         2: UIColor(red: 238/255, green: 228/255, blue: 218/255, alpha: 1.0), // бежевый
@@ -23,11 +24,13 @@ class GameView: UIView{
         1024: UIColor(red: 237/255, green: 197/255, blue: 63/255, alpha: 1.0), // светло-синий
         2048: UIColor(red: 237/255, green: 194/255, blue: 46/255, alpha: 1.0), // синий
     ]
-    override init(frame: CGRect) {
+    
+    init(frame: CGRect, viewController: ViewController) {
+        self.viewController = viewController
         super.init(frame: frame)
         createStackView()
         initializeCells()
-        backgroundColor = UIColor(red: 2 / 255, green: 108 / 255, blue: 128 / 255, alpha: 1.0)
+        backgroundColor = UIColor(red: 231 / 255, green: 228 / 255, blue: 220 / 255, alpha: 1.0)
         translatesAutoresizingMaskIntoConstraints = false
     }
     
@@ -43,9 +46,9 @@ class GameView: UIView{
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
-        label.text = "Message"
-        label.font = UIFont.systemFont(ofSize: 20, weight: .regular)
-        label.textColor = UIColor(red: 95 / 255, green: 97 / 255, blue: 63 / 255, alpha: 1.0)
+        label.text = ""
+        label.font = UIFont(name: "HelveticaNeue-Bold", size: 26.0)
+        label.textColor = UIColor(red: 207 / 255, green: 142 / 255, blue: 85 / 255, alpha: 1.0)
         return label
     }()
     
@@ -54,9 +57,33 @@ class GameView: UIView{
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         label.text = "Game 2048"
+        label.textColor = UIColor(red: 56 / 255, green: 50 / 255, blue: 48 / 255, alpha: 1.0)
         label.font = UIFont(name:"HelveticaNeue-Bold", size: 35.0)
         return label
     }()
+    
+    private lazy var restartLabel: UIButton = {
+        let button = UIButton(type: .system)
+        let label = UILabel()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        label.text = "Restart"
+        button.backgroundColor = UIColor(red: 56 / 255, green: 50 / 255, blue: 48 / 255, alpha: 1.0)
+        button.setTitleColor(UIColor(red: 228 / 255, green: 218 / 255, blue: 208 / 255, alpha: 1.0), for: .normal)
+        button.setTitle("Restart", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 28.0)
+        button.addTarget(self, action: #selector(restart), for: .touchUpInside)
+        return button
+    }()
+    
+    @objc func restart(){
+        self.removeFromSuperview()
+        viewController.restartGame()
+    }
+    @objc func print1() {
+        Swift.print(8)
+    }
     
     private func setCell(x: Int, y: Int, val: Int){
         let cell = table[x][y]
@@ -71,6 +98,14 @@ class GameView: UIView{
         message.text = "Congratulations, you won!!!"
     }
     
+    public func setLose(){
+        message.text = "Oh no, you lose!"
+    }
+    
+    public func setStart(){
+        message.text = ""
+    }
+    
     func updateView(gameTable: [[Int]]){
         for x in 0..<size {
             for y in 0..<size {
@@ -82,7 +117,9 @@ class GameView: UIView{
     func createStackView() {
         addSubview(header)
         addSubview(message)
-        stackView.backgroundColor = UIColor(red: 6 / 255, green: 4 / 255, blue: 114 / 255, alpha: 1.0)
+        addSubview(restartLabel)
+        stackView.backgroundColor = UIColor(red: 133 / 255, green: 70 / 255, blue: 65 / 255, alpha: 1.0)
+        stackView.layer.cornerRadius = 2 * .pi
         stackView.axis = .vertical
         stackView.spacing = 10
         stackView.alignment = .center
@@ -93,21 +130,24 @@ class GameView: UIView{
         addSubview(stackView)
         NSLayoutConstraint.activate([
             
-            header.topAnchor.constraint(equalTo: topAnchor),
+            header.topAnchor.constraint(equalTo: topAnchor, constant: CGFloat(indentFromY)),
             header.centerXAnchor.constraint(equalTo: centerXAnchor),
             header.widthAnchor.constraint(equalTo: widthAnchor, constant: CGFloat(indentFromX)),
-            header.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.2),
+            header.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.15),
             
-            message.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 50),
             message.centerXAnchor.constraint(equalTo: centerXAnchor),
             message.widthAnchor.constraint(equalTo: widthAnchor, constant: CGFloat(indentFromX)),
-            message.heightAnchor.constraint(equalToConstant: 50),
+            message.bottomAnchor.constraint(equalTo: stackView.topAnchor, constant: -30),
             
-            stackView.topAnchor.constraint(equalTo: message.bottomAnchor, constant: CGFloat(indentFromY)),
             stackView.widthAnchor.constraint(equalTo: widthAnchor, constant: CGFloat(-2 * indentFromX)),
-            //stackView.heightAnchor.constraint(equalTo: stackView.widthAnchor),
+            stackView.heightAnchor.constraint(equalTo: stackView.widthAnchor),
             stackView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: CGFloat(-2 * indentFromY))
+            stackView.bottomAnchor.constraint(equalTo: restartLabel.topAnchor, constant: -50),
+            
+            restartLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -150),
+            restartLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            restartLabel.widthAnchor.constraint(equalTo: widthAnchor, constant: CGFloat(-2 * indentFromX)),
+            restartLabel.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
     
@@ -119,30 +159,30 @@ class GameView: UIView{
             }
         }
         for x in (0..<4).reversed() {
-               let rowStackView = UIStackView()
-               rowStackView.translatesAutoresizingMaskIntoConstraints = false
-               rowStackView.axis = .horizontal
+            let rowStackView = UIStackView()
+            rowStackView.translatesAutoresizingMaskIntoConstraints = false
+            rowStackView.axis = .horizontal
             rowStackView.layoutMargins = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
             rowStackView.isLayoutMarginsRelativeArrangement = true            //rowStackView.alignment = .center
-               rowStackView.spacing = 10
-               rowStackView.distribution = .fillEqually
-               stackView.addArrangedSubview(rowStackView)
-               NSLayoutConstraint.activate([
+            rowStackView.spacing = 10
+            rowStackView.distribution = .fillEqually
+            stackView.addArrangedSubview(rowStackView)
+            NSLayoutConstraint.activate([
                 rowStackView.widthAnchor.constraint(equalTo: stackView.widthAnchor)
-               ])
+            ])
             for y in 0..<4 {
-                   let cell = table[x][y]
-                   cell.translatesAutoresizingMaskIntoConstraints = false
-                   cell.text = String(x * 5 + 7 * y)
-                   cell.textAlignment = .center
-                   cell.font = UIFont.systemFont(ofSize: 25, weight: .bold)
-                   cell.backgroundColor = colors[0]
-                   cell.layer.cornerRadius = 4
-                   cell.clipsToBounds = true
-                   rowStackView.addArrangedSubview(cell)
-               }
-           }
-       }
+                let cell = table[x][y]
+                cell.translatesAutoresizingMaskIntoConstraints = false
+                cell.text = String(x * 5 + 7 * y)
+                cell.textAlignment = .center
+                cell.font = UIFont.systemFont(ofSize: 25, weight: .bold)
+                cell.backgroundColor = colors[0]
+                cell.layer.cornerRadius = 4
+                cell.clipsToBounds = true
+                rowStackView.addArrangedSubview(cell)
+            }
+        }
+    }
     
     
 }
